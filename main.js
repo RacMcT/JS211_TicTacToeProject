@@ -31,26 +31,63 @@ const printBoard = () => {
   console.log('  ---------');
   console.log('2 ' + board[2].join(' | '));
 }
-
+// Check for horizontal wins
 const horizontalWin = () => {
   // Your code here to check for horizontal wins
+  if((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X") || 
+  (board[0][0] == "O" && board[0][1] == "O" && board[0][2] == "O") || 
+  (board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") || 
+  (board[1][0] == "O" && board[1][1] == "O" && board[1][2] == "O") ||
+  (board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X") || 
+  (board[2][0] == "O" && board[2][1] == "O" && board[2][2] == "O")) {
+    return true
+  } else {
+    return false
+  }
 }
 
+// Check for vertical wins
 const verticalWin = () => {
-  // Your code here to check for vertical wins
+  if((board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") || 
+  (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") || 
+  (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") || 
+  (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") ||
+  (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") || 
+  (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")) {
+    return true
+  } else {
+    return false
+  }
 }
 
-const diagonalWin = () => {
-  // Your code here to check for diagonal wins
+  // Check for diagonal wins
+let diagonalWin = () => {
+  if((board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") ||
+  (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") || 
+  (board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") || 
+  (board[2][0] == "O" && board[1][1] == "O" && board[0][2] == "O")) {
+    return true
+  } else {
+    return false
+  }
 }
 
-const checkForWin = () => {
-  // Your code here call each of the check for types of wins
+// Call each of the check for types of wins
+function checkForWin() {
+  if (horizontalWin() == true || verticalWin() == true || diagonalWin() == true) { window.alert(`Player ${currentMarker} won!`); }
+  else { changeMarker(); }
 }
 
-const ticTacToe = (row, column) => {
   // Your code here to place a marker on the board
   // then check for a win
+let ticTacToe = (row, column) => {
+  row = parseInt(id.charAt(0));
+  column = parseInt(id.charAt(2));
+  board[row][column] = currentMarker;
+  console.log(`*** The current marker is:  ${currentMarker}. ***`)
+  console.log(`Therefore, a  "${currentMarker}"  should be placed in the square with the id:  ${id}`)
+  document.getElementById(id).innerHTML = currentMarker;
+  checkForWin();
 }
 
 const getPrompt = () => {
