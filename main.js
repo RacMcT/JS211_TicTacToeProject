@@ -20,9 +20,11 @@ let board = [
 
 // assigns the first mark as 'X'
 // using let because the variable is expected to change from 'X' to 'O' and back
-let playerTurn = 'X';
-
-
+let currentMarker = 'X';
+// 3 UNIT TESTS STILL NEED TO PASS: CODE STARTED AT THE END OF FILE!!
+// NEED TO PLACE MARKER ON BOARD
+// NEED TO SWITCH FROM X TO O BETWEEN PLAYERS
+// THEN--- IT SHOULD BE ABLE TO CHECK FOR WINNER
 
 
 // is a function that print the current status of the board using the variable - board
@@ -75,27 +77,30 @@ let diagonalWin = () => {
   }
 }
 
-// Call each of the check for types of wins
-function checkForWin() {
-  if (horizontalWin() == true || verticalWin() == true || diagonalWin() == true) { window.alert(`Player ${currentMarker} won!`); }
-  else { changeMarker(); }
+const changeMarker = () => {
+  if(currentMarker === "X"){
+    currentMarker = "O"
+  } else {
+    currentMarker = "X"
+  }
 }
 
-  // Your code here to place a marker on the board
-  // then check for a win
-let ticTacToe = (row, column) => {
-  row = parseInt(id.charAt(0));
-  column = parseInt(id.charAt(2));
-  board[row][column] = currentMarker;
-  console.log(`*** The current marker is:  ${currentMarker}. ***`)
-  console.log(`Therefore, a  "${currentMarker}"  should be placed in the square with the id:  ${id}`)
-  document.getElementById(id).innerHTML = currentMarker;
-  checkForWin();
+// Call each of the check for types of wins
+const checkForWin = () => {
+  if(horizontalWin() == true || verticalWin() == true || diagonalWin() == true){
+    return true
+  }
 }
+
+  const ticTacToe = (row, column) => {
+    board[row][column] = currentMarker;
+    changeMarker()
+    
+  }
 
 const getPrompt = () => {
   printBoard();
-  console.log("It's Player " + playerTurn + "'s turn.");
+  console.log("It's Player " + currentMarker + "'s turn.");
   rl.question('row: ', (row) => {
     rl.question('column: ', (column) => {
       ticTacToe(row, column);
